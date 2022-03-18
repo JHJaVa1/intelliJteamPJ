@@ -1,19 +1,16 @@
 package kr.co.dajsoft.hell0.controller;
 
 import kr.co.dajsoft.hell0.dto.ApiDTO;
-import kr.co.dajsoft.hell0.dto.BoardDTO;
-import kr.co.dajsoft.hell0.dto.PageRequestDTO;
 import kr.co.dajsoft.hell0.repository.ApiRepository;
 import kr.co.dajsoft.hell0.service.ApiService;
-import kr.co.dajsoft.hell0.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedInputStream;
@@ -26,14 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@RestController
+@Controller
 @Log4j2
 @RequiredArgsConstructor
 public class RestApiController {
     private final ApiService apiService;
     private final ApiRepository apiRepository;
 
-    @GetMapping("/board/basket")
+    @GetMapping("/board/basketball")
     public String callApiWithJson(Model model) throws Exception {
         StringBuilder sb = new StringBuilder();
 
@@ -78,6 +75,7 @@ public class RestApiController {
         for (int i = 0; i < row.size(); i++) {
             jObj = (JSONObject) row.get(i);
             ApiDTO apiDTO = new ApiDTO();
+            apiDTO.setApino((i+1));
             apiDTO.setGubun(jObj.get("GUBUN").toString());
             apiDTO.setMaxclassnm(jObj.get("MAXCLASSNM").toString());
             apiDTO.setMinclassnm(jObj.get("MINCLASSNM").toString());
@@ -92,10 +90,11 @@ public class RestApiController {
             apiRepository.save(apiService.dtoToEntity(apiDTO)).getApino();
             list.add(apiDTO);
 
-             //4. model에 담아준다.
-
         }
-            model.addAttribute("apidto",list);
+        //4. model에 담아준다.
+        List<ApiDTO> list1 = apiService.get();
+        model.addAttribute("result", list1);
+        System.out.println(list);
         return "/board/basketball";
     }
 

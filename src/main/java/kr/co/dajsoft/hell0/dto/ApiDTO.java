@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiDTO {
-    private Long apino;
+    private int apino;
     private String gubun;
     private String maxclassnm;
     private String minclassnm;

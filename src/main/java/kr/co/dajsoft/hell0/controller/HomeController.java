@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -36,14 +37,7 @@ public class HomeController {
         model.addAttribute("result", boardService.getList(pageRequestDTO));
         return "board/board";
     }
-    @GetMapping("board/basketball")
-    public String basketball(Model model){
 
-        List<ApiDTO> list = apiService.get();
-        model.addAttribute("result", list);
-        System.out.println(list);
-        return "board/basketball";
-    }
     @GetMapping("board/football")
     public String football(){
         return "/board/football";

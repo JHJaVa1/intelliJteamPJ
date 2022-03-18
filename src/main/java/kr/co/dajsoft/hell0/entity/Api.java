@@ -13,8 +13,8 @@ import javax.persistence.*;
 @ToString
 public class Api {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long apino;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int apino;
     @Column
     private String gubun;
     @Column
